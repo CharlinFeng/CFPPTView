@@ -78,7 +78,7 @@ https://github.com/nsdictionary/CorePPTVC <br />
   
 #### 2. 由于swift自动引入，不用导入任何头文件，直接使用
 
-#### 2.1  本地幻灯：请注意直接构造构造传入正确的type值并在closure内返回幻灯模型
+#### 2.1  本地幻灯：请注意直接构造方法传入正确的type值并在closure内返回幻灯模型
     创建并展示一个本地相册
             //创建SwiftPPT
         var pptView = CFPPTView(type: PPTType.local) { () -> [PPTDataModel] in
@@ -103,7 +103,7 @@ https://github.com/nsdictionary/CorePPTVC <br />
         self.view.addSubview(pptView)
         
 
-#### 2.2  网络幻灯：请注意直接构造构造传入正确的type值并在closure内返回幻灯模型
+#### 2.2  网络幻灯：请注意直接构造方法传入正确的type值并在closure内返回幻灯模型
 
     //网络相册：
         //创建SwiftPPT
