@@ -60,6 +60,7 @@
 		894BA1801B37E271005A13BE /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 894BA16A1B37E271005A13BE /* UIView+WebCacheOperation.m */; };
 		894BA1811B37E271005A13BE /* UIButton+SD.m in Sources */ = {isa = PBXBuildFile; fileRef = 894BA16C1B37E271005A13BE /* UIButton+SD.m */; };
 		894BA1821B37E271005A13BE /* UIImageView+SD.m in Sources */ = {isa = PBXBuildFile; fileRef = 894BA16E1B37E271005A13BE /* UIImageView+SD.m */; };
+		894BA1861B37EBD5005A13BE /* show.gif in Resources */ = {isa = PBXBuildFile; fileRef = 894BA1851B37EBD5005A13BE /* show.gif */; };
 		894C810B1B365FF70040345C /* PPTType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894C810A1B365FF70040345C /* PPTType.swift */; };
 		894C810D1B36634E0040345C /* PPTDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894C810C1B36634E0040345C /* PPTDataModel.swift */; };
 		894C81131B366ABD0040345C /* local1.png in Resources */ = {isa = PBXBuildFile; fileRef = 894C810F1B366ABD0040345C /* local1.png */; };
@@ -161,6 +162,7 @@
 		894BA16C1B37E271005A13BE /* UIButton+SD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+SD.m"; sourceTree = "<group>"; };
 		894BA16D1B37E271005A13BE /* UIImageView+SD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+SD.h"; sourceTree = "<group>"; };
 		894BA16E1B37E271005A13BE /* UIImageView+SD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+SD.m"; sourceTree = "<group>"; };
+		894BA1851B37EBD5005A13BE /* show.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = show.gif; sourceTree = "<group>"; };
 		894C810A1B365FF70040345C /* PPTType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPTType.swift; sourceTree = "<group>"; };
 		894C810C1B36634E0040345C /* PPTDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPTDataModel.swift; sourceTree = "<group>"; };
 		894C810F1B366ABD0040345C /* local1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = local1.png; sourceTree = "<group>"; };
@@ -266,6 +268,7 @@
 		894810941B364EED004A3F73 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				894BA1851B37EBD5005A13BE /* show.gif */,
 				894C810E1B366ABD0040345C /* local */,
 				894810951B364EED004A3F73 /* Info.plist */,
 				8916BE831B36D31F00F16E22 /* oc.h */,
@@ -624,6 +627,7 @@
 				894C811B1B3678ED0040345C /* local4.png in Resources */,
 				894810A11B364EED004A3F73 /* LaunchScreen.xib in Resources */,
 				894C81131B366ABD0040345C /* local1.png in Resources */,
+				894BA1861B37EBD5005A13BE /* show.gif in Resources */,
 				894BA1701B37E271005A13BE /* CoreSDWebImage.bundle in Resources */,
 				8948109E1B364EED004A3F73 /* Images.xcassets in Resources */,
 			);
