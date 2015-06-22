@@ -34,6 +34,7 @@ class PPTPageControl: CorePageControl {
         
         //间距
         self.indicatorMargin = 5
+        self.userInteractionEnabled = NO
     }
     
     
