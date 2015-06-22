@@ -14,18 +14,6 @@
 
 <br /><br />
 
-框架截图 CUT
-===============
-![image](./CFPPTView/show.gif)<br />
-
-<br /><br />
-
-OC版本 OC
-===============
-之前写了一个OC版本（基于CollectionView）：<br />
-https://github.com/nsdictionary/CorePPTVC <br />
-<br />
-
 框架说明 EXPLAIN
 ===============
     Swfit时代的到来！
@@ -36,7 +24,23 @@ https://github.com/nsdictionary/CorePPTVC <br />
     OC:     Core(Core系列)
     Swift:  CF (意为Charlin Feng)
 
-<br />
+<br /><br />
+
+OC版本 OC
+===============
+之前写了一个OC版本（基于CollectionView）：<br />
+https://github.com/nsdictionary/CorePPTVC <br />
+<br /><br />
+
+框架截图 CUT
+===============
+![image](./CFPPTView/show.gif)<br />
+
+<br /><br />
+
+
+
+
 
 框架特性 FEATURE
 ===============
@@ -45,6 +49,8 @@ https://github.com/nsdictionary/CorePPTVC <br />
 >3.scrollView实现无限滚动，自动滚动展示。<br />
 >4.支持本地图片幻灯数据与网络图片幻灯。<br />
 >5.使用简单，一键集成。<br />
+
+
 <br /><br />
 
 
@@ -72,7 +78,7 @@ https://github.com/nsdictionary/CorePPTVC <br />
   
 #### 2. 由于swift自动引入，不用导入任何头文件，直接使用
 
-#### 2.1  本地幻灯：请注意直接构造构造传入正确的type值，并在closure内返回幻灯模型
+#### 2.1  本地幻灯：请注意直接构造构造传入正确的type值并在closure内返回幻灯模型
     创建并展示一个本地相册
             //创建SwiftPPT
         var pptView = CFPPTView(type: PPTType.local) { () -> [PPTDataModel] in
@@ -97,7 +103,7 @@ https://github.com/nsdictionary/CorePPTVC <br />
         self.view.addSubview(pptView)
         
 
-#### 2.2  网络幻灯：请注意直接构造构造传入正确的type值，并在closure内返回幻灯模型
+#### 2.2  网络幻灯：请注意直接构造构造传入正确的type值并在closure内返回幻灯模型
 
     //网络相册：
         //创建SwiftPPT
@@ -134,6 +140,8 @@ https://github.com/nsdictionary/CorePPTVC <br />
             self.scrollView?.timerOn()
         }
 
+
+<br/><br/>
 
 版权说明 RIGHTS
 ===============
