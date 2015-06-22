@@ -80,7 +80,7 @@ https://github.com/nsdictionary/CorePPTVC <br />
 
 #### 2.1  本地幻灯：请注意直接构造方法传入正确的type值并在closure内返回幻灯模型
     创建并展示一个本地相册
-            //创建SwiftPPT
+        //创建SwiftPPT
         var pptView = CFPPTView(type: PPTType.local) { () -> [PPTDataModel] in
             
             var localImages = [UIImage(named: "local1"),UIImage(named: "local2"),UIImage(named: "local3"),UIImage(named: "local4")]
@@ -105,7 +105,7 @@ https://github.com/nsdictionary/CorePPTVC <br />
 
 #### 2.2  网络幻灯：请注意直接构造方法传入正确的type值并在closure内返回幻灯模型
 
-    //网络相册：
+        //网络相册：
         //创建SwiftPPT
         var pptView2 = CFPPTView(type: PPTType.netWork) { () -> [PPTDataModel] in
             
