@@ -3,9 +3,11 @@
     Charlin出框架的目标：简单、易用、实用、高度封装、绝对解耦！
     Charlin Feng: 冯成林 现居于成都
     成都iOS开发群：
-   二群：369870753（新开，新鲜着呢，快加）
-   一群：163865401（已爆满，加不上了） 
+    二群：369870753（新开，新鲜着呢，快加）
+    一群：163865401（已爆满，加不上了） 
 -----
+
+<br /><br />
 
 # CFPPTView
    Swift版幻灯，scrollView无限滚动，支持网络和本地图片展示！
@@ -18,7 +20,7 @@
 
 <br /><br />
 
-####OC版本 OC
+OC版本 OC
 ===============
 之前写了一个OC版本（基于CollectionView）：<br />
 https://github.com/nsdictionary/CorePPTVC <br />
@@ -36,7 +38,7 @@ https://github.com/nsdictionary/CorePPTVC <br />
 
 <br />
 
-####框架特性 FEATURE
+框架特性 FEATURE
 ===============
 >1.swift代码编写。<br />
 >2.ios7.0 系统以上。<br />
@@ -60,7 +62,7 @@ https://github.com/nsdictionary/CorePPTVC <br />
 
 
 
-####使用说明 USAGE
+使用说明 USAGE
 ===============
 
 #### 1. 使用了OC框架（之前的OC框架一样可以使用的）
@@ -133,7 +135,7 @@ https://github.com/nsdictionary/CorePPTVC <br />
         }
 
 
-####版权说明 RIGHTS
+版权说明 RIGHTS
 ===============
 本框架由冯成林原创，保留一切权利！
 
