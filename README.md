@@ -59,7 +59,7 @@ https://github.com/nsdictionary/CorePPTVC <br />
 .CoreSDWebImage(OC)<br />
 .CorePageControl(OC)<br />
 .CFExtend(Swift)<br />
-.SnapKit(Swift)<br />
+.CFSnapKit(Swift)<br />
 <br /><br />
 
 
