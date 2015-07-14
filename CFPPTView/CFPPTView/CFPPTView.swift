@@ -20,6 +20,13 @@ class CFPPTView: UIView {
     
     private var dataModels: [PPTDataModel]!
     
+    var clickImageV: ((index: Int, pptDataModel: PPTDataModel) ->Void)?{
+        
+        didSet{
+            self.scrollView?.clickImageV = clickImageV
+        }
+    }
+    
     /**  调用些方法实例化  */
     convenience init(type: PPTType,dataModels:()->[PPTDataModel]){
         

@@ -15,7 +15,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
     
         //创建SwiftPPT
-        var pptView = CFPPTView(type: PPTType.local) { () -> [PPTDataModel] in
+        var pptView: CFPPTView = CFPPTView(type: PPTType.local) { () -> [PPTDataModel] in
             
             var localImages = [UIImage(named: "local1"),UIImage(named: "local2"),UIImage(named: "local3"),UIImage(named: "local4")]
             
@@ -28,6 +28,7 @@ class ViewController: UIViewController {
                 var dataModel = PPTDataModel(localImage: localImages[i]!, titleStr: localTitleStr[i])
             
                 dataModels.append(dataModel)
+        
             }
             
             return dataModels
@@ -36,8 +37,10 @@ class ViewController: UIViewController {
         
         self.view.addSubview(pptView)
         
-        
-        
+        pptView.clickImageV = {(index: Int, pptDataModel: PPTDataModel) -> Void in
+            
+            println(index)
+        }
         
         //网络相册：
         //创建SwiftPPT
@@ -51,7 +54,7 @@ class ViewController: UIViewController {
             
             for i in 0..<networkImages.count {
                 
-                var dataModel = PPTDataModel(networkImageUrl: networkImages[i], placeHolderImage: nil, titleStr: networkTitleStr[i])
+                var dataModel = PPTDataModel(networkImageUrl: networkImages[i], placeHolderImage: nil, titleStr: networkTitleStr[i],model: nil)
                 dataModels.append(dataModel)
             }
             

@@ -14,21 +14,23 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
     var type: PPTType?
     
     /**  循环利用的  */
-    var reusableView: UIImageView?
+    private var reusableView: UIImageView?
     
     /**  中间的  */
-    var centerView: UIImageView?
+    private var centerView: UIImageView?
     
-    var isNext: Bool?
+    private var isNext: Bool?
     
     /**  定时器  */
-    var timer: NSTimer?
+    private var timer: NSTimer?
     
-    var isFirstRun:Bool = NO
+    private var isFirstRun:Bool = NO
     
-    var isAnimationComplete: Bool = NO
+    private var isAnimationComplete: Bool = NO
     
-    var isLongTimeNoDrag: Bool = NO
+    private var isLongTimeNoDrag: Bool = NO
+    
+    var clickImageV: ((index: Int, pptDataModel: PPTDataModel) ->Void)?
     
     
     lazy var pageCount: Int = { self.dataModles!.count }()
@@ -129,6 +131,12 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
             
             var imageV: UIImageView = UIImageView()
             
+            //开启交互
+            imageV.userInteractionEnabled = true
+            
+            //添加手势
+            imageV.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tapImageV:"))
+            
             //创建imageView
             if PPTType.local == self.type {//本地
                 imageV.image = dataModel.localImage
@@ -139,12 +147,29 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
             imageV.contentMode = UIViewContentMode.ScaleAspectFill
             imageV.clipsToBounds = YES
             
+            //设置tag
+            imageV.tag = index
+            
             //添加
             self.imageViewArray.append(imageV)
             
             self.addSubview(imageV)
         }
     }
+    
+    /** 点击事件 */
+    func tapImageV(sender: UITapGestureRecognizer){
+        
+        let index = self.currentPage
+        
+        let pptDataModel = self.dataModles![index]
+        
+        if clickImageV == nil {return}
+        
+        clickImageV!(index: index,pptDataModel: pptDataModel)
+    }
+    
+    
     
     override func layoutSubviews() {
         
@@ -242,12 +267,7 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
             Int64(2 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) { () -> Void in
 
-                if(!self.isLongTimeNoDrag){
-                    println("不行")
-                    
-                    return}
-                
-                println("可以了")
+                if(!self.isLongTimeNoDrag){return}
                 
                 self.timerOn()
         }

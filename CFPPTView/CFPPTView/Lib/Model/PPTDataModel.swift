@@ -12,7 +12,7 @@ import UIKit
 
 
 
-class PPTDataModel {
+class PPTDataModel: NSObject {
     
     /**  本地图片：本地相册模式  */
     var localImage: UIImage?
@@ -26,6 +26,9 @@ class PPTDataModel {
     /**  说明文字  */
     var titleStr: String?
     
+    /** 原业务模型 */
+    var model: AnyObject?
+    
     
     init(localImage: UIImage, titleStr: String){
         
@@ -34,12 +37,12 @@ class PPTDataModel {
         self.titleStr = titleStr
     }
     
-    init(networkImageUrl: String, placeHolderImage: UIImage?, titleStr: String){
+    init(networkImageUrl: String, placeHolderImage: UIImage?, titleStr: String, model: AnyObject?){
         
         self.networkImageUrl = networkImageUrl
         self.placeHolderImage = placeHolderImage
         self.titleStr = titleStr
-        
+        self.model = model
     }
     
 
