@@ -47,7 +47,7 @@ https://github.com/nsdictionary/CorePPTVC <br />
 
 框架截图 CUT
 ===============
-![image](./CFPPTView/show.gif)<br />
+![image](./CFPPTView/show2.gif)<br />
 
 <br /><br />
 
