@@ -5,6 +5,12 @@
 <br /><br />
 <br />
 
+框架截图 CUT
+===============
+![image](./CFPPTView/show2.gif)<br />
+
+<br /><br />
+
 组织信息 Charlin Feng：
 ===============
 <br />
@@ -45,11 +51,7 @@ OC版本 OC
 https://github.com/nsdictionary/CorePPTVC <br />
 <br /><br />
 
-框架截图 CUT
-===============
-![image](./CFPPTView/show2.gif)<br />
 
-<br /><br />
 
 
 
