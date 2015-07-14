@@ -153,6 +153,14 @@ https://github.com/nsdictionary/CorePPTVC <br />
             self.scrollView?.timerOn()
         }
 
+#### 4 点击事件回调，请注意pptDataModel内部可传业务模型.model，方便你回调取用，
+
+        pptView.clickImageV = {(index: Int, pptDataModel: PPTDataModel) -> Void in
+            
+            println(index)
+        }
+
+
 
 <br/><br/>
 
