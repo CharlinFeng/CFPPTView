@@ -193,6 +193,8 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
     /**  配置scrollView  */
     func scrollViewPrepare(){
         
+        if self.dataModles?.count == 0{return}
+        
         if !isOnceAction {
             
             let width = self.width
@@ -394,6 +396,8 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
     func timerAction(){
         
         if(self.isFirstRun){
+            
+            if self.dataModles?.count == 0{return}
             
             self.contentOffset = CGPointZero
             

@@ -45,6 +45,8 @@ class CFPPTView: UIView {
     /**  数据来了  */
     func dataModelIsComming(){
         
+        if dataModels.count == 0 {return}
+        
         //传递数据
         self.scrollView?.dataModles = self.dataModels!;
         
@@ -132,6 +134,8 @@ class CFPPTView: UIView {
     
     
     func updatePage(#page: Int){
+        
+        if dataModels.count == 0 {return}
         
         self.titleLabel!.text = self.dataModels![page].titleStr
         
