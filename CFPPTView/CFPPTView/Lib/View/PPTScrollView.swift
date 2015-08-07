@@ -474,4 +474,9 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
         self.timer = nil
     }
     
+    deinit{
+        scrollViewPageChangedClosure = nil
+        timerOff()
+    }
+    
 }

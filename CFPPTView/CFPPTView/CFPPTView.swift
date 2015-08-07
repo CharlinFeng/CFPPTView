@@ -176,5 +176,7 @@ class CFPPTView: UIView {
         self.scrollView?.timerOn()
     }
     
-    
+    deinit{
+        timerOff()
+    }
 }
