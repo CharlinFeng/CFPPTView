@@ -17,7 +17,7 @@ class PPTPageControl: CorePageControl {
         self.viewPrepare()
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
         //视图准备
@@ -27,14 +27,12 @@ class PPTPageControl: CorePageControl {
     /**  视图准备  */
     func viewPrepare(){
         
-        var size = CGSizeMake(24, 4)
-        
-        self.pageIndicatorImage = UIImage.imageFromContextWithColor(UIColor.grayColor(), size: size)
-        self.currentPageIndicatorImage = UIImage.imageFromContextWithColor(UIColor.cyanColor(), size: size)
+        self.pageIndicatorTintColor = UIColor.grayColor()
+        self.currentPageIndicatorTintColor=UIColor.redColor()
         
         //间距
         self.indicatorMargin = 5
-        self.userInteractionEnabled = NO
+        self.userInteractionEnabled = false
     }
     
     

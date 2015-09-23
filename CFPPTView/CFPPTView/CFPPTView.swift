@@ -66,7 +66,7 @@ class CFPPTView: UIView {
     }
     
     /**  强制实现，此处无用  */
-    internal required init(coder aDecoder: NSCoder) {
+    internal required init?(coder aDecoder: NSCoder) {
         
         super.init(coder: aDecoder)
         
@@ -90,7 +90,7 @@ class CFPPTView: UIView {
     /**  指示器  */
     func pageControlPrepare(){
         
-        var pageControl = PPTPageControl()
+        let pageControl = PPTPageControl()
         //记录
         self.pageControl = pageControl
         
@@ -98,20 +98,15 @@ class CFPPTView: UIView {
         self.addSubview(pageControl)
         
         //添加约束
-        pageControl.snp_makeConstraints { (make) -> Void in
-            make.bottom.equalTo(self.snp_bottom).offset(0)
-            make.left.equalTo(self.snp_leading).offset(0)
-            make.right.equalTo(self.snp_trailing).offset(0)
-            make.height.equalTo(30)
-        }
-        
+        pageControl.make_topInsets_topHeight(top: 0, left: 0, right: 0, topHeight: 30)
+
     }
     
     /**  添加标题Label  */
     func titleLabelPrepare(){
         
-        var titleLabel = UILabel()
-        titleLabel.backgroundColor = rgb(0, 0, 0, 0.4)
+        let titleLabel = UILabel()
+        titleLabel.backgroundColor = UIColor.blackColor()
         //文字居中
         titleLabel.textAlignment = .Center
         //文字颜色
@@ -123,17 +118,11 @@ class CFPPTView: UIView {
         self.titleLabel = titleLabel
         
         //添加约束
-        titleLabel.snp_makeConstraints { (make) -> Void in
-            
-            make.top.equalTo(self.snp_top).offset(0)
-            make.left.equalTo(self.snp_leading).offset(0)
-            make.right.equalTo(self.snp_trailing).offset(0)
-            make.height.equalTo(30)
-        }
+        titleLabel.make_topInsets_topHeight(top: 0, left: 0, right: 0, topHeight: 30)
     }
     
     
-    func updatePage(#page: Int){
+    func updatePage(page page: Int){
         
         if dataModels.count == 0 {return}
         
@@ -147,7 +136,7 @@ class CFPPTView: UIView {
     func scroviewPrepare(){
         
         //创建
-        var scrollView = PPTScrollView()
+        let scrollView = PPTScrollView()
         
         //记录
         self.scrollView = scrollView
@@ -156,7 +145,7 @@ class CFPPTView: UIView {
         self.addSubview(scrollView)
         
         //添加约束
-        scrollView.cf_snp_layoutWithInsets(UIEdgeInsetsZero)
+        scrollView.make_4Inset(UIEdgeInsetsZero)
         
         //事件：页码改变
         scrollView.scrollViewPageChangedClosure = { [unowned self] (currentPage: Int) -> Void in

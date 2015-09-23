@@ -24,11 +24,11 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
     /**  定时器  */
     private var timer: NSTimer?
     
-    private var isFirstRun:Bool = NO
+    private var isFirstRun:Bool = false
     
-    private var isAnimationComplete: Bool = NO
+    private var isAnimationComplete: Bool = false
     
-    private var isLongTimeNoDrag: Bool = NO
+    private var isLongTimefalseDrag: Bool = false
     
     var clickImageV: ((index: Int, pptDataModel: PPTDataModel) ->Void)?
     
@@ -80,7 +80,7 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
     
     var scrollViewPageChangedClosure:((currentPage: Int)->Void)?
     
-    var isOnceAction: Bool = NO
+    var isOnceAction: Bool = false
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -89,7 +89,7 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
         self.viewPrepare()
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
         //视图准备
@@ -100,10 +100,10 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
     func viewPrepare(){
         
         //开启分页
-        self.pagingEnabled = YES
+        self.pagingEnabled = true
         
         //隐藏水平条
-        self.showsHorizontalScrollIndicator = NO
+        self.showsHorizontalScrollIndicator = false
         
         self.delegate = self
     }
@@ -124,12 +124,14 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
     
     /**  添加本地图片  */
     func localImagesPrepare(){
-    
-        self.dataModles?.enumerate{ (index, value) -> Void in
+        
+        var index = 0
+        
+        for value in self.dataModles! {
             
-            var dataModel = value as PPTDataModel
+            let dataModel = value as PPTDataModel
             
-            var imageV: UIImageView = UIImageView()
+            let imageV: UIImageView = UIImageView()
             
             //开启交互
             imageV.userInteractionEnabled = true
@@ -141,11 +143,11 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
             if PPTType.local == self.type {//本地
                 imageV.image = dataModel.localImage
             }else{
-                imageV.imageWithUrlStr(dataModel.networkImageUrl, phImage: dataModel.placeHolderImage)
+                imageV.imageWithUrlStr(dataModel.networkImageUrl, size: imageV.bounds.size, scale: 0.2)
             }
             
             imageV.contentMode = UIViewContentMode.ScaleAspectFill
-            imageV.clipsToBounds = YES
+            imageV.clipsToBounds = true
             
             //设置tag
             imageV.tag = index
@@ -154,6 +156,8 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
             self.imageViewArray.append(imageV)
             
             self.addSubview(imageV)
+            
+            index++
         }
     }
     
@@ -175,16 +179,18 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
         
         var frame = self.bounds
         
-        self.imageViewArray.enumerate { (index, value) -> Void in
+        var index = 0
+        
+        for imageV in imageViewArray{
             
-            var imageV = value as UIImageView
-            
-            var i = (index as Int).toCGFloat
-            
-            frame.origin.x = i * self.width
+            frame.origin.x = CGFloat(index) * self.bounds.size.width
             
             imageV.frame = frame
+            
+            index++
         }
+        
+  
         
         //配置scrollView
         self.scrollViewPrepare()
@@ -197,71 +203,69 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
         
         if !isOnceAction {
             
-            let width = self.width
-            let height = self.height
+            let width = self.bounds.width
+            let height = self.bounds.height
             
             //设置contentSize
             self.contentSize = CGSizeMake(width * 3, height)
             
             self.contentOffset = CGPointMake(width, 0)
              
-            var centerImageV = UIImageView()
+            let centerImageV = UIImageView()
             
-            var dataModel = self.dataModles![0]
+            let dataModel = self.dataModles![0]
             
             //创建imageView
             if PPTType.local == self.type {//本地
                 centerImageV.image = dataModel.localImage
             }else{
-                centerImageV.imageWithUrlStr(dataModel.networkImageUrl, phImage: dataModel.placeHolderImage)
+                centerImageV.imageWithUrlStr(dataModel.networkImageUrl, size: centerImageV.bounds.size, scale: 0.2)
             }
             
             centerImageV.frame = CGRectMake(width, 0, width, height)
-            centerImageV.clipsToBounds = YES
+            centerImageV.clipsToBounds = true
             //显示模式
             centerImageV.contentMode = UIViewContentMode.ScaleAspectFill
             self.addSubview(centerImageV)
             self.centerView = centerImageV
             
-            var reusableImageView = UIImageView()
+            let reusableImageView = UIImageView()
             //显示模式
             reusableImageView.contentMode = UIViewContentMode.ScaleAspectFill
             reusableImageView.frame = self.bounds
-            reusableImageView.clipsToBounds = YES
+            reusableImageView.clipsToBounds = true
             //记录
             self.reusableView = reusableImageView
-            self.isOnceAction = YES
+            self.isOnceAction = true
         }
     }
     
     
     func scrollViewWillBeginDragging(scrollView: UIScrollView) {
         
-        self.isLongTimeNoDrag = NO
+        self.isLongTimefalseDrag = false
 
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
-            Int64(1.5 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) { () -> Void in
-                
-                self.isLongTimeNoDrag = YES
-        }
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW,Int64(1.5 * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), { () -> Void in
+            self.isLongTimefalseDrag = true
+        })
         
         if(self.timer == nil) {return}
         
         self.timerOff()
     
-        self.contentOffset = CGPointMake(self.width, 0)
+        self.contentOffset = CGPointMake(self.bounds.width, 0)
         
-        var dataModel = self.dataModles![self.currentPage]
+        let dataModel = self.dataModles![self.currentPage]
         
         //创建imageView
         if PPTType.local == self.type {//本地
             self.centerView?.image = dataModel.localImage
         }else{
-            self.centerView?.imageWithUrlStr(dataModel.networkImageUrl, phImage: dataModel.placeHolderImage)
+            self.centerView?.imageWithUrlStr(dataModel.networkImageUrl, size: centerView!.bounds.size, scale: 0.2)
         }
         
         self.centerView?.contentMode=UIViewContentMode.ScaleAspectFill
-        self.centerView?.clipsToBounds = YES
+        self.centerView?.clipsToBounds = true
     }
     
     func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
@@ -269,7 +273,7 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
             Int64(2 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) { () -> Void in
 
-                if(!self.isLongTimeNoDrag){return}
+                if(!self.isLongTimefalseDrag){return}
                 
                 self.timerOn()
         }
@@ -280,9 +284,9 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
         
         if(self.timer != nil) {return}
 
-        var offsetX = self.contentOffset.x
+        let offsetX = self.contentOffset.x
         
-        var w = self.width
+        let w = self.bounds.width
       
         var f = self.reusableView?.frame
         
@@ -290,13 +294,11 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
     
         var index = 0
         
-        var count = self.dataModles!.count
-        
         if offsetX > self.centerView?.frame.origin.x { //显示在最右边
             
             f!.origin.x = self.contentSize.width - w
 
-            self.isNext = YES
+            self.isNext = true
             
             index = self.nextPage
             
@@ -304,7 +306,7 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
            
             f!.origin.x = 0
 
-            self.isNext = NO
+            self.isNext = false
             
             
             index = self.lastPage
@@ -313,27 +315,27 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
         self.reusableView?.frame = f!
         
         
-        var dataModel = self.dataModles![index]
+        let dataModel = self.dataModles![index]
         
         //创建imageView
         if PPTType.local == self.type {//本地
             self.reusableView?.image = dataModel.localImage
         }else{
-            self.reusableView?.imageWithUrlStr(dataModel.networkImageUrl, phImage: dataModel.placeHolderImage)
+            self.reusableView?.imageWithUrlStr(dataModel.networkImageUrl, size: reusableView!.bounds.size, scale: 0.2)
         }
         
         self.reusableView?.contentMode = UIViewContentMode.ScaleAspectFill
-        self.reusableView?.clipsToBounds = YES
+        self.reusableView?.clipsToBounds = true
         // 2.显示了最左或者最右的图片
         if (offsetX <= 0 || offsetX >= w * 2) {
             // 2.1.交换
-            var temp = self.centerView!
+            let temp = self.centerView!
             self.centerView = self.reusableView
             self.reusableView = temp
             
             // 2.2.设置显示位置
             self.centerView?.frame = self.reusableView!.frame
-            self.contentOffset = CGPointMake(width, 0)
+            self.contentOffset = CGPointMake(self.bounds.width, 0)
             
             self.reusableView?.removeFromSuperview()
             
@@ -343,7 +345,7 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
         } else {
             
             self.reusableView?.contentMode = UIViewContentMode.ScaleAspectFill
-            self.reusableView?.clipsToBounds = YES
+            self.reusableView?.clipsToBounds = true
             self.addSubview(self.reusableView!)
         }
     }
@@ -380,7 +382,7 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
         if(self.timer != nil && !self.isAnimationComplete) { return }
         
         //新建timer
-        var timer = NSTimer.scheduledTimerWithTimeInterval(4, target: self, selector: Selector("timerAction"), userInfo: nil, repeats: YES)
+        let timer = NSTimer.scheduledTimerWithTimeInterval(4, target: self, selector: Selector("timerAction"), userInfo: nil, repeats: true)
         
         //加入主循环
         NSRunLoop.mainRunLoop().addTimer(timer, forMode: NSDefaultRunLoopMode)
@@ -388,7 +390,7 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
         //记录
         self.timer = timer
      
-        self.isFirstRun = YES
+        self.isFirstRun = true
         
     }
     
@@ -401,21 +403,21 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
             
             self.contentOffset = CGPointZero
             
-            self.isFirstRun = NO
+            self.isFirstRun = false
             
             
-            var dataModel = self.dataModles![self.currentPage]
+            let dataModel = self.dataModles![self.currentPage]
             
             //创建imageView
             if PPTType.local == self.type {//本地
                 self.centerView?.image = dataModel.localImage
             }else{
-                self.centerView?.imageWithUrlStr(dataModel.networkImageUrl, phImage: dataModel.placeHolderImage)
+                self.centerView?.imageWithUrlStr(dataModel.networkImageUrl, size: centerView!.bounds.size, scale: 0.2)
             }
             
             self.centerView?.contentMode = UIViewContentMode.ScaleAspectFill
-            self.centerView?.clipsToBounds = YES
-            self.contentOffset = CGPointMake(self.width * self.currentPage.toCGFloat, 0)
+            self.centerView?.clipsToBounds = true
+            self.contentOffset = CGPointMake(self.bounds.width * CGFloat(self.currentPage), 0)
         }
         
 
@@ -426,36 +428,36 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
         if(index<0){ index = self.pageCount - 1}
         if(index>=self.pageCount){index = 0}
         
-        var dataModel = self.dataModles![1]
+        let dataModel = self.dataModles![1]
         
         //创建imageView
         if PPTType.local == self.type {//本地
             self.centerView?.image = dataModel.localImage
         }else{
-            self.centerView?.imageWithUrlStr(dataModel.networkImageUrl, phImage: dataModel.placeHolderImage)
+            self.centerView?.imageWithUrlStr(dataModel.networkImageUrl, size: centerView!.bounds.size, scale: 0.2)
         }
         
         self.centerView?.contentMode = UIViewContentMode.ScaleAspectFill
-        self.centerView?.clipsToBounds = YES
+        self.centerView?.clipsToBounds = true
         //执行页码回调
         self.scrollViewPageChangedClosure?(currentPage: index)
         
         
         //当前的offset
-        var offsetX = self.contentOffset.x + self.width
+        var offsetX = self.contentOffset.x + self.bounds.width
         
         //计算最大的offset
-        if(offsetX >= self.width * self.pageCount.toCGFloat) { offsetX = 0 }
+        if(offsetX >= self.bounds.width * CGFloat(self.pageCount)) { offsetX = 0 }
         
         //计算下一页的offset
-        var offset = CGPointMake(offsetX, 0)
+        let offset = CGPointMake(offsetX, 0)
 
-        self.isAnimationComplete = NO
-        self.scrollEnabled = NO
+        self.isAnimationComplete = false
+        self.scrollEnabled = false
         UIView.animateWithDuration(1, animations: { () -> Void in
             UIView.setAnimationCurve(UIViewAnimationCurve.EaseInOut)
             self.contentOffset = offset
-            self.scrollEnabled = YES
+            self.scrollEnabled = true
         })
     
         self.currentPage++
