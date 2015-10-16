@@ -428,7 +428,10 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
         if(index<0){ index = self.pageCount - 1}
         if(index>=self.pageCount){index = 0}
         
-        let dataModel = self.dataModles![1]
+        var centerPage = 1
+        if(self.dataModles!.count==1) {centerPage=0}
+        
+        let dataModel = self.dataModles![centerPage]
         
         //创建imageView
         if PPTType.local == self.type {//本地
