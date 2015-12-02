@@ -16,16 +16,10 @@ extension UIView {
     /**  四边内边距  */
     func make_4Inset(inset: UIEdgeInsets){
         
-        let sv = self.superview
-        
-        if sv == nil {return}
-        
-        self.snp_makeConstraints{ (make) -> Void in
+        if self.superview == nil {return}
             
-            make.top.equalTo(sv!.snp_top)
-            make.leading.equalTo(sv!.snp_leading)
-            make.bottom.equalTo(sv!.snp_bottom)
-            make.trailing.equalTo(sv!.snp_trailing)
+        self.snp_makeConstraints{ (make) -> Void in
+            make.edges.equalTo(self.superview!).inset(inset)
         }
     }
     
@@ -43,7 +37,6 @@ extension UIView {
             make.trailing.equalTo(sv!.snp_trailing).offset(-right)
             make.height.equalTo(topHeight)
         }
-        
     }
     
     
