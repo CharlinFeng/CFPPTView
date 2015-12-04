@@ -11,7 +11,7 @@
 
 
 #import "CorePageControl.h"
-#import "UIImageView+SD.h"
+#import "UIImageView+CoreYYWebImage.h"
 
 
 

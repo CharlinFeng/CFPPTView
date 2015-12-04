@@ -20,6 +20,8 @@ class CFPPTView: UIView {
     
     private var dataModels: [PPTDataModel]!
     
+    
+    
     var clickImageV: ((index: Int, pptDataModel: PPTDataModel) ->Void)?{
         
         didSet{

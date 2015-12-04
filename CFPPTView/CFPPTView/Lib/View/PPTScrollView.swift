@@ -30,6 +30,8 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
     
     private var isLongTimefalseDrag: Bool = false
     
+    private var holderImage: UIImage {return UIImage(named: "CFPPTView.bundle/holder")!}
+    
     var clickImageV: ((index: Int, pptDataModel: PPTDataModel) ->Void)?
     
     
@@ -143,7 +145,7 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
             if PPTType.local == self.type {//本地
                 imageV.image = dataModel.localImage
             }else{
-                imageV.imageWithUrlStr(dataModel.networkImageUrl, size: imageV.bounds.size, scale: 0.2)
+                imageV.imageWithUrl(dataModel.networkImageUrl, placeHolderImage: self.holderImage)
             }
             
             imageV.contentMode = UIViewContentMode.ScaleAspectFill
@@ -219,7 +221,7 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
             if PPTType.local == self.type {//本地
                 centerImageV.image = dataModel.localImage
             }else{
-                centerImageV.imageWithUrlStr(dataModel.networkImageUrl, size: centerImageV.bounds.size, scale: 0.2)
+                centerImageV.imageWithUrl(dataModel.networkImageUrl, placeHolderImage: self.holderImage)
             }
             
             centerImageV.frame = CGRectMake(width, 0, width, height)
@@ -261,7 +263,7 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
         if PPTType.local == self.type {//本地
             self.centerView?.image = dataModel.localImage
         }else{
-            self.centerView?.imageWithUrlStr(dataModel.networkImageUrl, size: centerView!.bounds.size, scale: 0.2)
+            self.centerView?.imageWithUrl(dataModel.networkImageUrl, placeHolderImage: self.holderImage)
         }
         
         self.centerView?.contentMode=UIViewContentMode.ScaleAspectFill
@@ -321,7 +323,7 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
         if PPTType.local == self.type {//本地
             self.reusableView?.image = dataModel.localImage
         }else{
-            self.reusableView?.imageWithUrlStr(dataModel.networkImageUrl, size: reusableView!.bounds.size, scale: 0.2)
+            self.reusableView?.imageWithUrl(dataModel.networkImageUrl, placeHolderImage: self.holderImage)
         }
         
         self.reusableView?.contentMode = UIViewContentMode.ScaleAspectFill
@@ -412,7 +414,7 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
             if PPTType.local == self.type {//本地
                 self.centerView?.image = dataModel.localImage
             }else{
-                self.centerView?.imageWithUrlStr(dataModel.networkImageUrl, size: centerView!.bounds.size, scale: 0.2)
+                self.centerView?.imageWithUrl(dataModel.networkImageUrl, placeHolderImage: self.holderImage)
             }
             
             self.centerView?.contentMode = UIViewContentMode.ScaleAspectFill
@@ -437,7 +439,7 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
         if PPTType.local == self.type {//本地
             self.centerView?.image = dataModel.localImage
         }else{
-            self.centerView?.imageWithUrlStr(dataModel.networkImageUrl, size: centerView!.bounds.size, scale: 0.2)
+            self.centerView?.imageWithUrl(dataModel.networkImageUrl, placeHolderImage: self.holderImage)
         }
         
         self.centerView?.contentMode = UIViewContentMode.ScaleAspectFill
