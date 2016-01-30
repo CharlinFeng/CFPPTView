@@ -30,7 +30,7 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
     
     private var isLongTimefalseDrag: Bool = false
     
-    private var holderImage: UIImage {return UIImage(named: "CFPPTView.bundle/holder")!}
+    private var holderImage: UIImage! = nil
     
     var clickImageV: ((index: Int, pptDataModel: PPTDataModel) ->Void)?
     
@@ -77,7 +77,7 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
             
             return next
         }
-   
+        
     }
     
     var scrollViewPageChangedClosure:((currentPage: Int)->Void)?
@@ -109,7 +109,7 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
         
         self.delegate = self
     }
-
+    
     var dataModles: [PPTDataModel]?{
         didSet{
             
@@ -192,7 +192,9 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
             index++
         }
         
-  
+        var f = centerView?.frame
+        f?.size.height = bounds.size.height
+        centerView?.frame = f!
         
         //配置scrollView
         self.scrollViewPrepare()
@@ -201,7 +203,7 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
     /**  配置scrollView  */
     func scrollViewPrepare(){
         
-        if self.dataModles?.count == 0{return}
+        if self.dataModles?.count ?? 0 == 0{return}
         
         if !isOnceAction {
             
@@ -212,7 +214,7 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
             self.contentSize = CGSizeMake(width * 3, height)
             
             self.contentOffset = CGPointMake(width, 0)
-             
+            
             let centerImageV = UIImageView()
             
             let dataModel = self.dataModles![0]
@@ -246,7 +248,7 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
     func scrollViewWillBeginDragging(scrollView: UIScrollView) {
         
         self.isLongTimefalseDrag = false
-
+        
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW,Int64(1.5 * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), { () -> Void in
             self.isLongTimefalseDrag = true
         })
@@ -254,7 +256,7 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
         if(self.timer == nil) {return}
         
         self.timerOff()
-    
+        
         self.contentOffset = CGPointMake(self.bounds.width, 0)
         
         let dataModel = self.dataModles![self.currentPage]
@@ -271,43 +273,43 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
     }
     
     func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-       
+        
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
             Int64(2 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) { () -> Void in
-
+                
                 if(!self.isLongTimefalseDrag){return}
                 
                 self.timerOn()
         }
     }
-
+    
     func scrollViewDidScroll(scrollView: UIScrollView) {
         
         
         if(self.timer != nil) {return}
-
+        
         let offsetX = self.contentOffset.x
         
         let w = self.bounds.width
-      
+        
         var f = self.reusableView?.frame
         
         if f == nil { return }
-    
+        
         var index = 0
         
         if offsetX > self.centerView?.frame.origin.x { //显示在最右边
             
             f!.origin.x = self.contentSize.width - w
-
+            
             self.isNext = true
             
             index = self.nextPage
             
         }else if offsetX < self.centerView?.frame.origin.x{ // 显示在最左边
-           
+            
             f!.origin.x = 0
-
+            
             self.isNext = false
             
             
@@ -391,7 +393,7 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
         
         //记录
         self.timer = timer
-     
+        
         self.isFirstRun = true
         
     }
@@ -422,7 +424,7 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
             self.contentOffset = CGPointMake(self.bounds.width * CGFloat(self.currentPage), 0)
         }
         
-
+        
         if(self.currentPage >= self.pageCount){self.currentPage = 0}
         
         
@@ -456,7 +458,7 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
         
         //计算下一页的offset
         let offset = CGPointMake(offsetX, 0)
-
+        
         self.isAnimationComplete = false
         self.scrollEnabled = false
         UIView.animateWithDuration(1, animations: { () -> Void in
@@ -464,7 +466,7 @@ class PPTScrollView: UIScrollView, UIScrollViewDelegate{
             self.contentOffset = offset
             self.scrollEnabled = true
         })
-    
+        
         self.currentPage++
     }
     
